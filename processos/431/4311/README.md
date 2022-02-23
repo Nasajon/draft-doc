@@ -33,8 +33,8 @@ Obs.: Além destas, os produtos apresentam também as propriedades resumo herdad
 | peso_liquido | number(20,4) | Peso líquido do produto. |  |
 | origem_mercadoria | string | Identifica a origem da mercadoria. | <ul><li>_"nacional":_ Fabricação Nacional.</li><li>_"estrageira_direta":_ Estrangeira - Importação Direta.</li><li>_"estrangeira_indireta":_ Estrangeira - Importada Adquirida no Mercado Interno.</li><li>_"nacional_40_70":_ Mercadoria ou bem com Conteúdo de Importação superior a 40% e inferior ou igual a 70% (setenta por cento).</li><li>_"nacional_legislacao_ajustes":_ Nacional, cuja produção tenha sido feita em conformidade com os processos produtivos básicos de que tratam as legislações citadas nos ajustes.</li><li>_"nacional_40":_ Mercadoria ou bem com conteúdo de importação inferior ou igual a 40%.</li><li>_"estrangeira_direta_camex":_ Importação direta, sem similar nacional, constante em lista de resolução CAMEX e gás natural.</li><li>_"estrangeira_indireta_camex":_ Adquirida no mercado interno, sem similar nacional, constante em lista de resolução CAMEX e gás natural.</li><li>_"nacional_70":_ Mercadoria ou bem com Conteúdo de Importação superior a 70% (setenta por cento).</li></ul> |
 | grupo_inventario | string | Identifica o grupo de inventário do material. | <ul><li>_"mercadorias":_ Mercadorias</li><li>_"materias_primas":_ Matérias-Primas</li><li>_"produtos_intermediarios":_ Produtos Intermediários</li><li>_"materiais_embalagem":_ Material de Embalagem</li><li>_"manufaturados":_ Produtos Acabados ou Manufaturados</li><li>_"em_fabricacao":_ Produtos em Fase de Fabricação</li><li>_"bens_terceiros":_ Bens de Terceiros</li><li>_"ativo":_ Ativo Permanente</li><li>_"uso_consumo":_ Uso e Consumo</li><li>_"outros":_ Outros</li><li>_"bens_poder_terceiros":_ Bens em Poder de Terceiros</li><li>_"bens_terceiros_poder_terceiros":_ Bens de Terceiros em Poder de Terceiros</li><li>_"subprodto":_ Subproduto</li><li>_"outros_insumos":_ Outros insumos</li><li>_"gorjeta":_ Gorjeta</li></ul> |
+| unidade_padrao | [Unidade](#unidade) | Lista de objetos representado as unidades disponíves para o produto (relacionadas com o registro). |  |
 | familia | [Familia](#família) | Objeto representado a família do produto (relacionada com o registro). |  |
-| unidades | [Unidade[]](#unidade)) | Lista de objetos representado as unidades disponíves para o produto (relacionadas com o registro). |  |
 | fabricante | [Fabricante](TODO) | Objeto representado o Fabricante do produto (relacionado com o registro). |  |
 | categoria | [Categoria](#categoria) | Objeto representado a Categoria do produto (relacionado com o registro). |  |
 | tributacao | [TributacaoProduto](#tributacaoproduto) | Objeto representando as normas de tributação aplicáveis ao Produto (relacionado com o registro). |  |
@@ -125,7 +125,7 @@ Propriedades contidas em qualquer representação expandida de uma tributação 
 
 ### Listar Produtos
 
-> GET dados-mestre/4311/produtos
+> GET cadastro-geral/4311/produtos
 
 #### Parâmetros da rota
 
@@ -140,7 +140,7 @@ Propriedades contidas em qualquer representação expandida de uma tributação 
 | Parâmetro | Tipo | Descrição |
 | -- | -- | -- |
 | fields | uuid | Listagem das [propriedades complementares](#complementares) a serem retornadas na chamada. Consulte as [disposições gerais](../../../disposicoes-gerais.md#parâmetro-fields) para mais informações. |
-| expand | boolean | Indica se os relacionamentos devem ou não ser expandidos em JSON aninhado. Consulte as [disposições gerais](../../../disposicoes-gerais.md#parâmetro-expand) para mais informações. |
+| expand | boolean | Indica quais relacionamentos devem ser expandidos em JSON aninhado. Consulte as [disposições gerais](../../../disposicoes-gerais.md#parâmetro-expand) para mais informações. |
 | limit | integer | Indica o número máximo de registros a retornar (limitado a 250). Consulte as [disposições gerais](../../../disposicoes-gerais.md#paginação-das-respostas) para mais informações. |
 | offset | integer | Indica o salto inicial na consulta dos registros. Consulte as [disposições gerais](../../../disposicoes-gerais.md#paginação-das-respostas) para mais informações. |
 
@@ -161,7 +161,7 @@ Propriedades contidas em qualquer representação expandida de uma tributação 
 ###### Listagem resumida
 
 ```http
-GET dados-mestre/4311/produtos?grupo_empresarial=5df5c57d-c0d8-4a79-a5fc-c3cfa3a20a66
+GET cadastro-geral/4311/produtos?grupo_empresarial=5df5c57d-c0d8-4a79-a5fc-c3cfa3a20a66
 
 {
     "count": 1,
@@ -183,12 +183,11 @@ GET dados-mestre/4311/produtos?grupo_empresarial=5df5c57d-c0d8-4a79-a5fc-c3cfa3a
 
 ###### Listagem com fields
 ```http
-GET dados-mestre/4311/produtos?grupo_empresarial=5df5c57d-c0d8-4a79-a5fc-c3cfa3a20a66&fields=ncm,preco_venda,unidades
+GET cadastro-geral/4311/produtos?grupo_empresarial=5df5c57d-c0d8-4a79-a5fc-c3cfa3a20a66&fields=ncm,preco_venda,unidade_padrao.id
 
 {
     "count": 1,
     "next": null,
-    "prev": null,
     "results": [
         {
             "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
@@ -201,7 +200,9 @@ GET dados-mestre/4311/produtos?grupo_empresarial=5df5c57d-c0d8-4a79-a5fc-c3cfa3a
             "ncm": "85015210",
             "ncm": "85015210",
             "preco_venda": 5.76,
-            "unidades": ["8105a0a7-7132-4349-a488-1e4a9333ca79", "8eeb2b3d-de9d-4f59-ab0c-10a5ab81bf31"]
+            "unidade_padrao": {
+                id :"8105a0a7-7132-4349-a488-1e4a9333ca79"
+            }
         }
     ]
 }
@@ -210,12 +211,11 @@ GET dados-mestre/4311/produtos?grupo_empresarial=5df5c57d-c0d8-4a79-a5fc-c3cfa3a
 
 ###### Listagem com fields e expand
 ```http
-GET /4311/material-peca/produtos?grupo_empresarial=5df5c57d-c0d8-4a79-a5fc-c3cfa3a20a66&fields=ncm,preco_venda,unidades&expand=true
+GET /4311/material-peca/produtos?grupo_empresarial=5df5c57d-c0d8-4a79-a5fc-c3cfa3a20a66&fields=ncm,preco_venda,unidades&expand=unidade_padrao
 
 {
     "count": 1,
     "next": null,
-    "prev": null,
     "results": [
         {
             "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
@@ -226,19 +226,16 @@ GET /4311/material-peca/produtos?grupo_empresarial=5df5c57d-c0d8-4a79-a5fc-c3cfa
             "atualizado_em": "2021-12-09T23:58:49",
             "atualizado_por": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
             "ncm": "85015210",
-            "ncm": "85015210",
             "preco_venda": 5.76,
-            "unidades": [
-                {
-                    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-                    "codigo": "UN",
-                    "descricao": "Unidade",
-                    "criado_em": "2021-12-09T23:58:49",
-                    "criado_por": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-                    "atualizado_em": "2021-12-09T23:58:49",
-                    "atualizado_por": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-                }
-            ]
+            "unidade_padrao": {
+                "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                "codigo": "UN",
+                "descricao": "Unidade",
+                "criado_em": "2021-12-09T23:58:49",
+                "criado_por": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                "atualizado_em": "2021-12-09T23:58:49",
+                "atualizado_por": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+            }
         }
     ]
 }
@@ -247,7 +244,88 @@ GET /4311/material-peca/produtos?grupo_empresarial=5df5c57d-c0d8-4a79-a5fc-c3cfa
 ###### Retorno com erro
 
 ```http
-GET dados-mestre/4311/produtos
+GET cadastro-geral/4311/produtos
+
+{
+    "errors": [
+        {
+            "code": "4311-E001",
+            "msg": "Faltando parâmetro "grupo_empresarial" na chamada."
+        }
+    ]
+}
+```
+
+##### Códigos internos de erro
+
+| Codigo | Descrição |
+| - | - |
+| 4311-E001 | Faltando parâmetro "grupo_empresarial" na chamada. |
+
+TODO Complementar com códigos de erro
+
+
+### Listar Unidades
+
+> GET cadastro-geral/4311/unidades
+
+#### Parâmetros da rota
+
+| Parâmetro | Tipo | Obrigatório | Descrição |
+| -- | -- | -- | -- |
+| grupo_empresarial | uuid | Sim | Identificador único interno de grupo_empresarial desejado. |
+| criado_apos | date |  | Permite filtrar produtos criados após uma determinada data (condição: maior que). |
+| atualizado_apos | date |  | Permite filtrar produtos atualizados após uma determinada data (condição: maior que). |
+
+#### Parâmetros herdados
+
+| Parâmetro | Tipo | Descrição |
+| -- | -- | -- |
+| fields | uuid | Listagem das [propriedades complementares](#complementares) a serem retornadas na chamada. Consulte as [disposições gerais](../../../disposicoes-gerais.md#parâmetro-fields) para mais informações. |
+| expand | string | Indica quais relacionamentos devem ser expandidos em JSON aninhado. Consulte as [disposições gerais](../../../disposicoes-gerais.md#parâmetro-expand) para mais informações. |
+| limit | integer | Indica o número máximo de registros a retornar (limitado a 250). Consulte as [disposições gerais](../../../disposicoes-gerais.md#paginação-das-respostas) para mais informações. |
+| offset | string | Indica o salto inicial na consulta dos registros. Consulte as [disposições gerais](../../../disposicoes-gerais.md#paginação-das-respostas) para mais informações. |
+
+#### Formato de Retorno
+
+| HTTP Status | Descrição |
+| -- | -- |
+| 200 | Ok (ver exemplos a seguir) |
+| 400 | Requisição inválida, causa provável: parâmetro incorreto. **(*)** |
+| 401 | Proibido acesso, causa provável: falha na autenticação. **(*)** |
+| 403 | Proibida ação, causa provável: falha na autorização. **(*)** |
+| 500 | Erro desconhecido (ver detalhes no corpo da resposta). **(*)** |
+
+* **(*):** Ver [disposições gerais sobre erros](../../../disposicoes-gerais.md#padrão-de-resposta-para-erros), para mais informações.
+
+##### Exemplos de retorno
+
+###### Listagem resumida
+
+```http
+GET cadastro-geral/4311/unidades?grupo_empresarial=5df5c57d-c0d8-4a79-a5fc-c3cfa3a20a66
+
+{
+    "count": 1,
+    "next": null,
+    "results": [
+        {
+            "id": "7978f8c4-e131-4bab-9ca3-b25cb991bbc9",
+            "codigo": "01",
+            "descricao": "01",
+            "criado_em": "2022-02-22 11:08:02.497786",
+            "criado_por": null,
+            "atualizado_em": "2016-02-27 21:34:00.778389",
+            "atualizado_por": null
+        }
+    ]
+}
+```
+
+###### Retorno com erro
+
+```http
+GET cadastro-geral/4311/unidades
 
 {
     "errors": [

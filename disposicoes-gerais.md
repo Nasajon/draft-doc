@@ -27,9 +27,9 @@ Caso se deseje uma propriedade complementar, é necessário especificar a mesma 
 
 Esse parâmetro recebe uma lista de propriedades separadas por vírgula, e se for necessário especificar uma propriedades de uma entidade relacionada, deve-se adicionar a mesma entre parênteses, ou usando o padrão de propriedades com ".". Ambas as sintaxes são igualmente aceitas. Ver exemplo abaixo (possível na recuperação de um Produto):
 
-> fields=ncm,preco_venda,unidades(casas_decimais,padrao,razao_conversao)
+> fields=ncm,preco_venda,unidade_padrao(casas_decimais,padrao,razao_conversao)
 
-> fields=ncm,preco_venda,unidades.casas_decimais,unidades.padrao,unidades.razao_conversao
+> fields=ncm,preco_venda,unidade_padrao.casas_decimais,unidade_padrao.padrao,unidade_padrao.razao_conversao
 
 ### Parâmetro Expand
 
@@ -41,7 +41,7 @@ Se o parâmetro ```fields``` também for passado, e contiver indicação a uma p
 
 A sintaxe padrão de uso é:
 
-> expand=true
+> expand=propriedade1,propriedade2,propriedade3
 
 E, os valores false ou null são tratados de modo equivalente.
 
@@ -79,7 +79,7 @@ Este padrão de implementação prevê os seguintes parâmetros para as rotas:
 | Parâmetro | Tipo | Descrição |
 | -- | -- | -- |
 | limit | integer | Indica o número máximo de registros a retornar (limitado a 250). |
-| offset | integer | Indica o salto inicial na consulta dos registros. |
+| offset | string | Indica o salto inicial na consulta dos registros. É o Identificador do último item da página anterior da listagem. |
 
 Além disso, o próprio formato JSON das respostas também é padronizado, de forma a facilitar o tratamento do retorno por parte da aplicação cliente:
 
@@ -87,7 +87,6 @@ Além disso, o próprio formato JSON das respostas também é padronizado, de fo
 {
     "count": <NÚMERO DE REGISTROS RETORNADOS NA LISTA "results">,
     "next": <URL PARA RETORNO DA PRÓXIMA PÁGINA>,
-    "prev": <URL PARA RETORNO DA PÁGINA ANTERIOR>,
     "results": [
         {
             <JSON DO OBJETO EM SI>
