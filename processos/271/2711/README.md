@@ -88,23 +88,24 @@ Obs.: Além destas, devem se considerar também as propriedades resumo herdadas:
 | codigo_municipio | string(60) | Código do município, ou código IBGE (exemplo: Rio de Janeiro = 3304557) |
 | codigo_pais      | string(4)  | Código do país (exemplo: Brasil = 1058)                                 |
 
-### Venda de Mercadoria
+### Venda sem Pedido
 
-Representa uma venda de mercadoria efetuada, porém ainda não emitida.
+Representa uma venda de mercadoria ou serviço efetuada (sem pedido), porém ainda não emitida.
 
 #### Propriedades
 
 ##### Identificação
 
-| Propriedade    | Tipo               | Descrição                                                                              |
-| -------------- | ------------------ | -------------------------------------------------------------------------------------- |
-| emitente       | [CNPJ/UUID/CODIGO] | Identificador do participante emitente da nota                                         |
-| emitente_ie    | string(20)         | Inscrição Estadual do participante emitente da nota (se houver)                        |
-| destinatario   | [CNPJ/UUID/CODIGO] | Identificador do participante destinatário da nota                                     |
-| emitente_ie    | string(20)         | Inscrição Estadual do participante destinatário da nota (se houver)                    |
-| numero_externo | string(10)         | Número do pedido ou da ordem de compra (um tipo de chave candidata do próprio cliente) |
-| valor          | decimal(2)         | Valor total da venda                                                                   |
-| data_saida     | date               | Data de saída da mercadoria                                                            |
+| Propriedade    | Tipo                   | Descrição                                                                              |
+| -------------- | ---------------------- | -------------------------------------------------------------------------------------- |
+| emitente       | [CNPJ/UUID/CODIGO/CPF] | Identificador do participante emitente da nota                                         |
+| emitente_ie    | string(20)             | Inscrição Estadual do participante emitente da nota (se houver)                        |
+| destinatario   | [CNPJ/UUID/CODIGO/CPF] | Identificador do participante destinatário da nota                                     |
+| emitente_ie    | string(20)             | Inscrição Estadual do participante destinatário da nota (se houver)                    |
+| numero_externo | string(10)             | Número do pedido ou da ordem de compra (um tipo de chave candidata do próprio cliente) |
+| valor          | decimal(2)             | Valor total da venda                                                                   |
+| data_saida     | date                   | Data de saída da mercadoria                                                            |
+| natureza       | CODIGO                 | Natureza da venda                                                                      |
 
 Obs.: Além destas, devem se considerar também as propriedades resumo herdadas: [criado_em, criado_por, atualizado_em, atualizado_por]. Ver a sessão de disposições gerais das APIs do ERP Nasajon.
 
@@ -115,14 +116,92 @@ Obs.: Além destas, devem se considerar também as propriedades resumo herdadas:
 | Propriedade       | Tipo            | Descrição                                                 |
 | ----------------- | --------------- | --------------------------------------------------------- |
 | desconto          | decimal(2)      | Deconto total aplicado na venda                           |
-| natureza          | CODIGO          | Natureza da venda                                         |
 | endereco_retirada | Endereco        | Endereço de retirada da mercadoria                        |
 | endereco_entrega  | Endereco        | Endereço de entrega da mercadoria                         |
 | itens             | Item de Venda[] | Lista de itens da venda (mercadorias)                     |
 | moeda             | MOEDA           | Código da moeda utilizada (consultar tipos padrões TODO)  |
 | cobranca          | Cobranca[]      | Informações sobre o modo de cobrança do venda (se houver) |
 
-## Ordem de Faturamento sem Pedido
+## Rotas
 
-APIs assíncronas para recepção de documentos fiscais a serem emitidos pelo ERP.
+### Registrar ordem de faturamento de venda sem pedido
 
+> POST /faturamento-api/2711/ordens-vendas-sem-pedido
+
+API assíncrona para recepção de vendas sem pedido, a serem emitidas pelo ERP.
+
+#### Corpo da requisição
+
+> **Entidade principal:** Venda de mercadoria
+
+_Os campos da entidade principal serão herdados, considerando as regras a seguir:_
+
+##### Propriedades adicionais
+
+| Propriedade       | Tipo          | Obrigatório | Descrição                                    |
+| ----------------- | ------------- | ----------- | -------------------------------------------- |
+| tenant            | [int8/CODIGO] | Sim         | Tenant da instalação do ERP                  |
+| grupo_empresarial | [UUID/CODIGO] | Sim         | Grupo empresarial para persistencia da venda |
+
+##### Propriedades opcionais
+
+* venda.valor
+* venda.data_saida
+* venda.desconto
+* venda.moeda
+* venda.cobranca
+* TODO ... continuar
+
+##### Propriedades suprimidas
+
+TODO
+
+##### Exemplo de requisição
+
+```json
+[
+    {
+        "tenant": "GEDPROD",
+        "grupo_empresarial": "NASAJON",
+        "emitente": "07644677000101",
+        "destinatario": "16.939.188/0001-78",
+        ...
+    },
+    ...
+]
+```
+
+#### Formato de Retorno
+
+_Se tratando de uma requisição assíncrona, o retorno aponta para a URL de acompanhamento do processamento._
+
+##### Status possíveis
+| HTTP Status | Descrição                                                                                                           |
+| ----------- | ------------------------------------------------------------------------------------------------------------------- |
+| 202         | Solicitação aceita.                                                                                                 |
+| 400         | Requisição inválida. Causa provável: formato de entrada incorreto, ou faltando dados. (*)                           |
+| 401         | Proibido acesso. Causa provável: falha na autenticação. (*)                                                         |
+| 403         | Proibida ação. Causa provável: falha na autorização. (*)                                                            |
+| 404         | Não encontrado. Entidade relacionada não encontrada (tenant, grupo empresarial, estabelecimento, produto, etc). (*) |
+| 409         | Conflito. Causa provável: entidade já existente                                                                     |
+| 500         | Erro interno do servidor. Ver detalhes no corpo da resposta.                                                        |
+
+_(*): Ver disposições gerais sobre erros, para mais informações._
+
+##### Exemplos de retorno
+
+###### Sucesso na requisição
+```http
+HTTP/1.1 202 Accepted
+Location: /faturamento-api/2711/ordens-vendas-sem-pedido/cfbb4ece-cfd5-4bf5-aaec-f415e83352aa
+```
+
+###### Exemplo de erro
+
+TODO
+
+##### Códigos internos de erro
+
+| Codigo    | Descrição |
+| --------- | --------- |
+| 2711-E001 | TODO      |
