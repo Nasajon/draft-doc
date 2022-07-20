@@ -23,11 +23,13 @@ Tabela que representa uma instalação (ou provisionamento) de ERP, para um clie
 
 * primary key: (tenant)
 
-### Grupo empresarial
+### Grupo de Participantes
 
-> Tabela: grupo_empresarial
+> Tabela: grupo_participante
 
-Tabela que representa um grupo empresarial de um tenant. A ideia aqui é que os dados de uma instalação são contidos nos tenants, mas, seguimentados, obrigatoriamente, por grupos empresariais (permitindo a exportaçao e importação de grupos inteiros).
+Tabela que representa um agrupamento de participantes dentro de um tenant, normalmente se referindo a um grupo empresarial.
+
+A ideia aqui é que os dados de uma instalação são contidos nos tenants, mas, seguimentados, obrigatoriamente, por grupos de participantes (permitindo a exportaçao e importação de grupos inteiros).
 
 | Propriedade | Tipo        | Descrição                                                                                          | Not Null | Default | Domínio |
 | ----------- | ----------- | -------------------------------------------------------------------------------------------------- | -------- | ------- | ------- |
@@ -43,16 +45,16 @@ Tabela que representa um grupo empresarial de um tenant. A ideia aqui é que os 
 
 ## Propriedades comuns a todas as demais entidades (que representam dados de uma instalação)
 
-| Propriedade       | Tipo        | Descrição                                                                                            | Not Null | Default | Domínio |
-| ----------------- | ----------- | ---------------------------------------------------------------------------------------------------- | -------- | ------- | ------- |
-| id                | uuid        | Identificador único da tabela, usado como PK, e para referências de FKs, mas, não expôsto pelas APIs | Sim      | Vazio   |         |
-| criado_em         | datetime    | Indica data e hora de cadastro do registro.                                                          | Não      | now()   |         |
-| criado_por        | string(150) | Indica e-mail da conta Nasajon, do usuário responsável pela criação do registro.                     | Sim      | Vazio   |         |
-| atualizado_em     | datetime    | Indica data e hora da última atualização do registro.                                                | Não      | Vazio   |         |
-| atualizado_por    | string(150) | Indica e-mail da conta Nasajon, do usuário responsável pela última atualização do registro.          | Sim      | Vazio   |         |
-| apagado_em        | datetime    | Indica data e hora quando o registro sofreu exclusão lógica ("soft delete"), se ocorrer.             | Não      | Vazio   |         |
-| grupo_empresarial | uuid        | Identificador do grupo empresarial ao qual o registro pertence.                                      | Sim      | Vazio   |         |
-| tenant            | bigint      | Identificador do tenant ao qual o registro pertence.                                                 | Sim      | Vazio   |         |
+| Propriedade        | Tipo        | Descrição                                                                                            | Not Null | Default | Domínio |
+| ------------------ | ----------- | ---------------------------------------------------------------------------------------------------- | -------- | ------- | ------- |
+| id                 | uuid        | Identificador único da tabela, usado como PK, e para referências de FKs, mas, não expôsto pelas APIs | Sim      | Vazio   |         |
+| criado_em          | datetime    | Indica data e hora de cadastro do registro.                                                          | Não      | now()   |         |
+| criado_por         | string(150) | Indica e-mail da conta Nasajon, do usuário responsável pela criação do registro.                     | Sim      | Vazio   |         |
+| atualizado_em      | datetime    | Indica data e hora da última atualização do registro.                                                | Não      | Vazio   |         |
+| atualizado_por     | string(150) | Indica e-mail da conta Nasajon, do usuário responsável pela última atualização do registro.          | Sim      | Vazio   |         |
+| apagado_em         | datetime    | Indica data e hora quando o registro sofreu exclusão lógica ("soft delete"), se ocorrer.             | Não      | Vazio   |         |
+| grupo_participante | uuid        | Identificador do grupo de participante ao qual o registro pertence.                                  | Sim      | Vazio   |         |
+| tenant             | bigint      | Identificador do tenant ao qual o registro pertence.                                                 | Sim      | Vazio   |         |
 
 #### Restrições
 
