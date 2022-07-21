@@ -45,7 +45,6 @@ Além disso, os papeís assumidos por estes participantes não serão atributos 
 | propriedades_customizadas | json        | JSON de propriedades customizadas pelo cliente.                                                                                                                                                 | Não      | Vazio   |                                                                                                                                                                                                                                                                                                                                                  |
 | site                      | string(250) | Endereço eletrônico do participante.                                                                                                                                                            | Não      | Vazio   |                                                                                                                                                                                                                                                                                                                                                  |
 | inativo                   | boolean     | Indica que um participante está inativo (não excluído, apenas oculo por opção do usuário).                                                                                                      | Sim      | False   |                                                                                                                                                                                                                                                                                                                                                  |
-|                           |
 
 #### Propriedades dos participante que representem pessoas jurídicas
 
@@ -63,66 +62,74 @@ Além disso, os papeís assumidos por estes participantes não serão atributos 
 
 #### Propriedades dos participante que representem pessoas físicas
 
-| Propriedade           | Tipo        | Descrição                                                                     | Not Null | Default | LGPD     | Domínio                                                                                                                                                     |
-| --------------------- | ----------- | ----------------------------------------------------------------------------- | -------- | ------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| caepf                 | string(18)  | Cadastro de Atividade Econômica da Pessoas Física.                            | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| nit                   | string(11)  | Número de Inscrição do Trabalhador.                                           | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| nascimento            | date        | Data de nascimento do participante (se pessoa física).                        | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| nacionalidade         | string(5)   | Código do país de nacionalidade.                                              | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| naturalidade          | string(2)   | UF de nascimento do participante.                                             | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| ibge_nascimento       | string(8)   | Código do município de nascimento do participante.                            | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| obito                 | date        | Data de falescimento do participante (se pessoa física).                      | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| foto_url              | string(250) | URL para fotografia do participante (normalmente pessoal física).             | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| raca                  | string(10)  | Classificação de cor ou raça (conforme o IBGE).                               | Não      | Vazio   | Sensível | ["branca", "parda", "preta", "amarela", "indigena"] _(1)_                                                                                                   |
-| grau_instrucao        | string(20)  | Classificação de grau de instrução (conforme o IBGE).                         | Não      | Vazio   | Sensível | ["sem_instrucao", "fundamental_incompleto", "fundamental_completo", "medio_incompleto", "medio_completo", "superior_incompleto", "superior_completo"] _(2)_ |
-| sexo                  | string(10)  | Sexo do participante.                                                         | Não      | Vazio   | Sensível | ["homem", "mulher"] _(3)_                                                                                                                                   |
-| estado_civil          | string(10)  | Estado civil do participante.                                                 | Não      | Vazio   | Sensível | ["casado", "desquitado_separado", "divorciado", "solteiro", "viuvo"] _(4)_                                                                                  |
-| nome_pai              | string(250) | Nome do pai do participante.                                                  | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| nome_mae              | string(250) | Nome da mãe do participante.                                                  | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| definiciente_visual   | boolean     | Indica que o participante é deficiente visual.                                | Não      | Vazio   | Sensível |                                                                                                                                                             |
-| definiciente_auditivo | boolean     | Indica que o participante é deficiente auditivo.                              | Não      | Vazio   | Sensível |                                                                                                                                                             |
-| definiciente_auditivo | boolean     | Indica que o participante é deficiente auditivo.                              | Não      | Vazio   | Sensível |                                                                                                                                                             |
-| reabilitado           | boolean     | Indica que o participante é reabilitado.                                      | Não      | Vazio   | Sensível |                                                                                                                                                             |
-| ctps                  | string(11)  | Número da Carteira de Trabalho e Previcência Social.                          | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| serie_ctps            | string(5)   | Série da Carteira de Trabalho e Previcência Social.                           | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| uf_ctps               | string(2)   | Unidade Federativa de expedição da Carteira de Trabalho e Previcência Social. | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| data_ctps             | data        | Data de expedição da Carteira de Trabalho e Previcência Social.               | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| ric                   | string(30)  | Número do Registro de Identidade Civil.                                       | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| orgao_ric             | string(20)  | Órgão emissor do Registro de Identidade Civil.                                | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| data_ric              | data        | Data de emissão do Registro de Identidade Civil.                              | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| uf_ric                | string(2)   | UF do Registro de Identidade Civil.                                           | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| cidade_ric            | string(60)  | Cidade de emissão do Registro de Identidade Civil.                            | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| rg                    | string(30)  | Número do Registro Geral (identidade).                                        | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| orgao_rg              | string(20)  | Órgão emissor do Registro Geral (identidade).                                 | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| data_rg               | date        | Data de emissão do Registro Geral (identidade).                               | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| uf_rg                 | string(2)   | Unidade Federativa de emissão do Registro Geral (identidade).                 | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| cnh                   | string(30)  | Número da Carteira Nacional de Habilitação.                                   | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| orgao_cnh             | string(20)  | Órgão emissor da Carteira Nacional de Habilitação.                            | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| data_cnh              | date        | Data de emissão da Carteira Nacional de Habilitação.                          | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| validade_cnh          | date        | Data de Validade da Carteira Nacional de Habilitação.                         | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| data_primeira_cnh     | date        | Data de emissão da primeira Carteira Nacional de Habilitação.                 | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| categoria_cnh         | string(3)   | Categoria da Carteira Nacional de Habilitação.                                | Não      | Vazio   | Pessoal  | ["a", "b", "c", "d", "e", "ab", "ac", "ad", "ae"]                                                                                                           |
-| pais_passaporte       | string(8)   | Código do país de emissão do Passaporte.                                      | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| passaporte            | string(30)  | Número do Passaporte.                                                         | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| orgao_passaporte      | string(20)  | Órgão emissor do Passaporte.                                                  | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| uf_passaporte         | string(2)   | Unidade Federativa de emissão do Passaporte.                                  | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| data_passaporte       | date        | Data de emissão do Passaporte.                                                | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| validade_passaporte   | date        | Data de validade do Passaporte.                                               | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| passaporte            | string(30)  | Número do Passaporte.                                                         | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| nis                   | string(11)  | Número de Identificação Social.                                               | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| te                    | string(15)  | Número do Título de Eleitor.                                                  | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| zona_te               | string(3)   | Zona do Título de Eleitor.                                                    | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| secao_te              | string(4)   | Sessão do Título de Eleitor.                                                  | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| uf_te                 | string(2)   | Unidade Federativa de emissão do Título de Eleitor.                           | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| atestado_obito        | string(32)  | Número do atestado de óbito.                                                  | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| tipo_certidao         | string(10)  | Tipo da Certidão.                                                             | Não      | Vazio   | Pessoal  | ["nascimento", "casamento"]                                                                                                                                 |
-| numero_certidao       | string(30)  | Número da Certidão.                                                           | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| livro_certidao        | string(15)  | Número do livro da Certidão.                                                  | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| folha_certidao        | string(15)  | Número da folha do livro da Certidão.                                         | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| data_certidao         | date        | Data de expedição da Certidão.                                                | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| cidade_certidao       | string(60)  | Cidade de expedição da Certidão.                                              | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| uf_certidao           | string(2)   | Unidade Federativa de expedição da Certidão.                                  | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
-| cartorio_certidao     | string(30)  | Identificação do cartório de expedição da Certidão.                           | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| Propriedade              | Tipo        | Descrição                                                                     | Not Null | Default | LGPD     | Domínio                                                                                                                                                     |
+| ------------------------ | ----------- | ----------------------------------------------------------------------------- | -------- | ------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| nome_social              | string(150) | Nome social da Pessoa Física.                                                 | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| caepf                    | string(18)  | Cadastro de Atividade Econômica da Pessoa Física.                             | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| nit                      | string(11)  | Número de Inscrição do Trabalhador.                                           | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| nascimento               | date        | Data de nascimento do participante (se pessoa física).                        | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| nacionalidade            | string(5)   | Código do país de nacionalidade.                                              | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| naturalidade             | string(2)   | UF de nascimento do participante.                                             | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| ibge_nascimento          | string(8)   | Código do município de nascimento do participante.                            | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| obito                    | date        | Data de falescimento do participante (se pessoa física).                      | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| foto_url                 | string(250) | URL para fotografia do participante (normalmente pessoal física).             | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| raca                     | string(10)  | Classificação de cor ou raça (conforme o IBGE).                               | Não      | Vazio   | Sensível | ["branca", "parda", "preta", "amarela", "indigena"] _(1)_                                                                                                   |
+| grau_instrucao           | string(20)  | Classificação de grau de instrução (conforme o IBGE).                         | Não      | Vazio   | Sensível | ["sem_instrucao", "fundamental_incompleto", "fundamental_completo", "medio_incompleto", "medio_completo", "superior_incompleto", "superior_completo"] _(2)_ |
+| sexo                     | string(10)  | Sexo do participante.                                                         | Não      | Vazio   | Sensível | ["homem", "mulher"] _(3)_                                                                                                                                   |
+| estado_civil             | string(10)  | Estado civil do participante.                                                 | Não      | Vazio   | Sensível | ["casado", "desquitado_separado", "divorciado", "solteiro", "viuvo"] _(4)_                                                                                  |
+| nome_pai                 | string(250) | Nome do pai do participante.                                                  | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| nome_mae                 | string(250) | Nome da mãe do participante.                                                  | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| definiciente_visual      | boolean     | Indica que o participante possui algum tipo de deficiência visual.            | Não      | Vazio   | Sensível |                                                                                                                                                             |
+| definiciente_auditivo    | boolean     | Indica que o participante possui algum tipo de deficiÊncia auditiva.          | Não      | Vazio   | Sensível |                                                                                                                                                             |
+| definiciente_intelectual | boolean     | Indica que o participante possui algum tipo de deficiência intelectual.       | Não      | Vazio   | Sensível |                                                                                                                                                             |
+| definiciente_mental      | boolean     | Indica que o participante possui algum tipo de deficiência mental.            | Não      | Vazio   | Sensível |                                                                                                                                                             |
+| definiciente_fisico      | boolean     | Indica que o participante possui algum tipo de deficiência física.            | Não      | Vazio   | Sensível |                                                                                                                                                             |
+| reabilitado              | boolean     | Indica que o participante é reabilitado.                                      | Não      | Vazio   | Sensível |                                                                                                                                                             |
+| ctps                     | string(11)  | Número da Carteira de Trabalho e Previcência Social.                          | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| serie_ctps               | string(5)   | Série da Carteira de Trabalho e Previcência Social.                           | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| uf_ctps                  | string(2)   | Unidade Federativa de expedição da Carteira de Trabalho e Previcência Social. | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| data_ctps                | data        | Data de expedição da Carteira de Trabalho e Previcência Social.               | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| ric                      | string(30)  | Número do Registro de Identidade Civil.                                       | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| orgao_ric                | string(20)  | Órgão emissor do Registro de Identidade Civil.                                | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| data_ric                 | data        | Data de emissão do Registro de Identidade Civil.                              | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| uf_ric                   | string(2)   | UF do Registro de Identidade Civil.                                           | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| cidade_ric               | string(60)  | Cidade de emissão do Registro de Identidade Civil.                            | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| rg                       | string(30)  | Número do Registro Geral (identidade).                                        | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| orgao_rg                 | string(20)  | Órgão emissor do Registro Geral (identidade).                                 | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| data_rg                  | date        | Data de emissão do Registro Geral (identidade).                               | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| uf_rg                    | string(2)   | Unidade Federativa de emissão do Registro Geral (identidade).                 | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| cnh                      | string(30)  | Número da Carteira Nacional de Habilitação.                                   | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| orgao_cnh                | string(20)  | Órgão emissor da Carteira Nacional de Habilitação.                            | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| uf_cnh                   | string(2)   | UF de emissão da Carteira Nacional de Habilitação.                            | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| data_cnh                 | date        | Data de emissão da Carteira Nacional de Habilitação.                          | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| validade_cnh             | date        | Data de Validade da Carteira Nacional de Habilitação.                         | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| data_primeira_cnh        | date        | Data de emissão da primeira Carteira Nacional de Habilitação.                 | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| categoria_cnh            | string(3)   | Categoria da Carteira Nacional de Habilitação.                                | Não      | Vazio   | Pessoal  | ["a", "b", "c", "d", "e", "ab", "ac", "ad", "ae"]                                                                                                           |
+| pais_passaporte          | string(8)   | Código do país de emissão do Passaporte.                                      | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| passaporte               | string(30)  | Número do Passaporte.                                                         | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| orgao_passaporte         | string(20)  | Órgão emissor do Passaporte.                                                  | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| uf_passaporte            | string(2)   | Unidade Federativa de emissão do Passaporte.                                  | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| data_passaporte          | date        | Data de emissão do Passaporte.                                                | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| validade_passaporte      | date        | Data de validade do Passaporte.                                               | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| passaporte               | string(30)  | Número do Passaporte.                                                         | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| nis                      | string(11)  | Número de Identificação Social.                                               | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| te                       | string(15)  | Número do Título de Eleitor.                                                  | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| zona_te                  | string(3)   | Zona do Título de Eleitor.                                                    | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| secao_te                 | string(4)   | Sessão do Título de Eleitor.                                                  | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| uf_te                    | string(2)   | Unidade Federativa de emissão do Título de Eleitor.                           | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| atestado_obito           | string(32)  | Número do atestado de óbito.                                                  | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| tipo_certidao            | string(10)  | Tipo da Certidão.                                                             | Não      | Vazio   | Pessoal  | ["nascimento", "casamento"]                                                                                                                                 |
+| numero_certidao          | string(30)  | Número da Certidão.                                                           | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| livro_certidao           | string(15)  | Número do livro da Certidão.                                                  | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| folha_certidao           | string(15)  | Número da folha do livro da Certidão.                                         | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| data_certidao            | date        | Data de expedição da Certidão.                                                | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| cidade_certidao          | string(60)  | Cidade de expedição da Certidão.                                              | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| uf_certidao              | string(2)   | Unidade Federativa de expedição da Certidão.                                  | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| cartorio_certidao        | string(30)  | Identificação do cartório de expedição da Certidão.                           | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| cr                       | string(15)  | Número do Certificado de Registro (no exército).                              | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| serie_cr                 | string(5)   | Série do Certificado de Registro (no exército).                               | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| data_cr                  | date        | Data de expedição do Certificado de Registro (no exército).                   | Não      | Vazio   | Pessoal  |                                                                                                                                                             |
+| tipo_sanguineo           | string(2)   | Tipo sanguíneo do participante                                                | Não      | Vazio   | Pessoal  | ["a", "b", "o", "ab"]                                                                                                                                       |
  
 _(1) As opções estão de acordo com as definições [oficiais do IBGE](https://educa.ibge.gov.br/jovens/conheca-o-brasil/populacao/18319-cor-ou-raca.html#:~:text=De%20acordo%20com%20dados%20da,1%25%20como%20amarelos%20ou%20ind%C3%ADgenas.), inclusive há uma [reportagem da Gazeta](https://www.agazeta.com.br/es/gv/preto-ou-negro-ibge-explica-classificacao-de-cor-e-raca-em-pesquisas-1118), explicando o uso do termo "preta", e não "negro" (visto que "preto" é entendido como subconjunto de "negro", assim como "pardo")._
 
@@ -140,33 +147,183 @@ _(4) As opções estão de acordo com os [resultados divulgados pelo IBGE](https
 
 ### Relacionamento Participantes
 
-> Tabela: relacionamento_participante
+#### Leads
 
-Representa um relacionamento entre participantes contidos no BD.
+> Tabela: rel_lead
 
-| Propriedade             | Tipo    | Descrição                                                                                                                                                                               | Not Null | Default | Domínio |
-| ----------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ------- | ------- |
-| participante_origem     | uuid    | ID do participante origem do relacionamento (por exemplo, para um relacionamento com a flag "cliente" marcada, a origem está no contratante, ou cliente).                               | Sim      | Vazio   |         |
-| participante_destino    | uuid    | ID do participante destino do relacionamento (por exemplo, para um relacionamento com a flag "cliente" marcada, o destino está no contratado, normalmente uma empresa membro do grupo). | Sim      | Vazio   |         |
-| lead                    | boolean | Indica que o participante_origem é lead do participante_destino.                                                                                                                        | Sim      | False   |         |
-| cliente                 | boolean | Indica que o participante_origem é Cliente do participante_destino.                                                                                                                     | Sim      | False   |         |
-| fornecedor              | boolean | Indica que o participante_origem é Fornecedor do participante_destino.                                                                                                                  | Sim      | False   |         |
-| tecnico                 | boolean | Indica que o participante_origem é Técnico do participante_destino.                                                                                                                     | Sim      | False   |         |
-| vendedor                | boolean | Indica que o participante_origem é Vendedor do participante_destino.                                                                                                                    | Sim      | False   |         |
-| transportadora          | boolean | Indica que o participante_origem é uma Transportadora do participante_destino.                                                                                                          | Sim      | False   |         |
-| representante_comercial | boolean | Indica que o participante_origem é um Representante Comercial do participante_destino.                                                                                                  | Sim      | False   |         |
-| representante_tecnico   | boolean | Indica que o participante_origem é um Representante Técnico do participante_destino.                                                                                                    | Sim      | False   |         |
-| contato                 | boolean | Indica que o participante_origem é um Contato do participante_destino.                                                                                                                  | Sim      | False   |         |
+Representa um relacionamento de Lead entre participantes (normalmente um participante qualquer, com outro marcado como `membro_grupo`).
 
-_Obs. 1: Para os relacionamentos do tipo `lead, Cliente, Fornecedor, Técnico, Vendedor, Transportadora, Representante Comercial e Representante Técnico`, esta tabela de relacionamento será normalmente usada para indicar o relacionamento entre um Participante que figure como uma empresa de um dos grupo de participantes do sistema (marcado com a flag `empresa_membro` como true), e outro participante qualquer (geralmente com a flag `empresa_membro` como false). Nestes casos, a coluna `participante_destino` sempre será preenchida com a `empresa_membro`. Embora seja possível, não se planeja guardar o relacionamento (de cliente, fornecedor, etc) entre participantes onde ambos não sejam membros de um dos grupos de participantes do tenant._
+| Propriedade  | Tipo | Descrição                                                                 | Not Null | Default | Domínio |
+| ------------ | ---- | ------------------------------------------------------------------------- | -------- | ------- | ------- |
+| lead         | uuid | ID do participante que figura como Lead no relacionamento.                | Sim      | Vazio   |         |
+| participante | uuid | ID do participante que figura como possível fornecedor no relacionamento. | Sim      | Vazio   |         |
 
-_Obs. 2: Para os relacionamentos do tipo `Contato`, esta tabela de relacionamento será normalmente usada para indicar o relacionamento entre dois Participantes que não figuram como empresas membro de um dos grupos de participantes do sistema (marcados com a flag `empresa_membro` como false). Também pode-se gravar os contatos de uma `empresa_membro`, mas não se planeja esse como um uso normal._
+##### Restrições
 
-#### Restrições
+* unique: (tenant, grupo_participante, participante, lead)
+* FK: (participante) aponta para `participante` coluna (id)
+* FK: (lead) aponta para `participante` coluna (id)
 
-* unique: (tenant, grupo_participante, participante_origem, participante_destino)
-* FK: (participante_origem) aponta para `participante` coluna (id)
-* FK: (participante_destino) aponta para `participante` coluna (id)
+#### Clientes
+
+> Tabela: rel_cliente
+
+Representa um relacionamento de Cliente entre participantes (normalmente um participante qualquer, com outro marcado como `membro_grupo`).
+
+| Propriedade    | Tipo          | Descrição                                                        | Not Null | Default | Domínio |
+| -------------- | ------------- | ---------------------------------------------------------------- | -------- | ------- | ------- |
+| cliente        | uuid          | ID do participante que figura como Cliente no relacionamento.    | Sim      | Vazio   |         |
+| participante   | uuid          | ID do participante que figura como fornecedor no relacionamento. | Sim      | Vazio   |         |
+| limite_credito | numeric(20,2) | Limite de crédito do cliente.                                    | Sim      | Vazio   |         |
+
+##### Restrições
+
+* unique: (tenant, grupo_participante, participante, cliente)
+* FK: (participante) aponta para `participante` coluna (id)
+* FK: (cliente) aponta para `participante` coluna (id)
+
+#### Fornecedores
+
+> Tabela: rel_fornecedor
+
+Representa um relacionamento de Fornecedor entre participantes (normalmente um participante qualquer, com outro marcado como `membro_grupo`).
+
+| Propriedade  | Tipo | Descrição                                                        | Not Null | Default | Domínio |
+| ------------ | ---- | ---------------------------------------------------------------- | -------- | ------- | ------- |
+| fornecedor   | uuid | ID do participante que figura como Fornecedor no relacionamento. | Sim      | Vazio   |         |
+| participante | uuid | ID do participante que figura como cliente no relacionamento.    | Sim      | Vazio   |         |
+
+##### Restrições
+
+* unique: (tenant, grupo_participante, participante, fornecedor)
+* FK: (participante) aponta para `participante` coluna (id)
+* FK: (fornecedor) aponta para `participante` coluna (id)
+
+#### Técnicos
+
+> Tabela: rel_tecnico
+
+Representa um relacionamento de Técnico entre participantes (normalmente um participante qualquer, com outro marcado como `membro_grupo`).
+
+| Propriedade  | Tipo | Descrição                                                         | Not Null | Default | Domínio |
+| ------------ | ---- | ----------------------------------------------------------------- | -------- | ------- | ------- |
+| tecnico      | uuid | ID do participante que figura como Técnico no relacionamento.     | Sim      | Vazio   |         |
+| participante | uuid | ID do participante que figura como contratante no relacionamento. | Sim      | Vazio   |         |
+
+##### Restrições
+
+* unique: (tenant, grupo_participante, participante, tecnico)
+* FK: (participante) aponta para `participante` coluna (id)
+* FK: (tecnico) aponta para `participante` coluna (id)
+
+#### Vendedores
+
+> Tabela: rel_vendedor
+
+Representa um relacionamento de Vendedor entre participantes (normalmente um participante qualquer, com outro marcado como `membro_grupo`).
+
+| Propriedade  | Tipo | Descrição                                                         | Not Null | Default | Domínio |
+| ------------ | ---- | ----------------------------------------------------------------- | -------- | ------- | ------- |
+| vendedor     | uuid | ID do participante que figura como Vendedor no relacionamento.    | Sim      | Vazio   |         |
+| participante | uuid | ID do participante que figura como contratante no relacionamento. | Sim      | Vazio   |         |
+
+##### Restrições
+
+* unique: (tenant, grupo_participante, participante, vendedor)
+* FK: (participante) aponta para `participante` coluna (id)
+* FK: (vendedor) aponta para `participante` coluna (id)
+
+#### Transportadoras
+
+> Tabela: rel_transportadora
+
+Representa um relacionamento de Transportadora entre participantes (normalmente um participante qualquer, com outro marcado como `membro_grupo`).
+
+| Propriedade    | Tipo | Descrição                                                            | Not Null | Default | Domínio |
+| -------------- | ---- | -------------------------------------------------------------------- | -------- | ------- | ------- |
+| transportadora | uuid | ID do participante que figura como Transportadora no relacionamento. | Sim      | Vazio   |         |
+| participante   | uuid | ID do participante que figura como contratante no relacionamento.    | Sim      | Vazio   |         |
+
+##### Restrições
+
+* unique: (tenant, grupo_participante, participante, transportadora)
+* FK: (participante) aponta para `participante` coluna (id)
+* FK: (transportadora) aponta para `participante` coluna (id)
+
+#### Representantes Comerciais
+
+> Tabela: rel_representante_comercial
+
+Representa um relacionamento de Representante Comercial entre participantes (normalmente um participante qualquer, com outro marcado como `membro_grupo`).
+
+| Propriedade             | Tipo | Descrição                                                                     | Not Null | Default | Domínio |
+| ----------------------- | ---- | ----------------------------------------------------------------------------- | -------- | ------- | ------- |
+| representante_comercial | uuid | ID do participante que figura como Representante Comercial no relacionamento. | Sim      | Vazio   |         |
+| participante            | uuid | ID do participante que figura como contratante no relacionamento.             | Sim      | Vazio   |         |
+
+##### Restrições
+
+* unique: (tenant, grupo_participante, participante, representante_comercial)
+* FK: (participante) aponta para `participante` coluna (id)
+* FK: (representante_comercial) aponta para `participante` coluna (id)
+
+#### Representantes Técnicos
+
+> Tabela: rel_representante_tecnico
+
+Representa um relacionamento de Representante Técnico entre participantes (normalmente um participante qualquer, com outro marcado como `membro_grupo`).
+
+| Propriedade           | Tipo | Descrição                                                                   | Not Null | Default | Domínio |
+| --------------------- | ---- | --------------------------------------------------------------------------- | -------- | ------- | ------- |
+| representante_tecnico | uuid | ID do participante que figura como Representante Técnico no relacionamento. | Sim      | Vazio   |         |
+| participante          | uuid | ID do participante que figura como contratante no relacionamento.           | Sim      | Vazio   |         |
+
+##### Restrições
+
+* unique: (tenant, grupo_participante, participante, representante_tecnico)
+* FK: (participante) aponta para `participante` coluna (id)
+* FK: (representante_tecnico) aponta para `participante` coluna (id)
+
+#### Contato
+
+> Tabela: rel_contato
+
+Representa um relacionamento de Contato entre participantes (normalmente entre dois participantes, ambos não marcados como `membro_grupo`).
+
+| Propriedade  | Tipo    | Descrição                                                       | Not Null | Default | Domínio |
+| ------------ | ------- | --------------------------------------------------------------- | -------- | ------- | ------- |
+| contato      | uuid    | ID do participante que figura como Contato no relacionamento.   | Sim      | Vazio   |         |
+| participante | uuid    | ID do participante que figura como aquele que contém o contato. | Sim      | Vazio   |         |
+| financeiro   | boolean | Indica se é um contato de natureza financeira.                  | Não      | Vazio   |         |
+| fiscal       | boolean | Indica se é um contato de natureza fiscal.                      | Não      | Vazio   |         |
+| comercial    | boolean | Indica se é um contato de natureza comercial.                   | Não      | Vazio   |         |
+| pessoal      | boolean | Indica se é um contato de natureza pessoal.                     | Não      | Vazio   |         |
+| tecnico      | boolean | Indica se é um contato de natureza técnica.                     | Não      | Vazio   |         |
+
+##### Restrições
+
+* unique: (tenant, grupo_participante, participante, contato)
+* FK: (participante) aponta para `participante` coluna (id)
+* FK: (contato) aponta para `participante` coluna (id)
+
+#### Dependente
+
+> Tabela: rel_dependente
+
+Representa um relacionamento de Dependência entre participantes (normalmente pessoas físicas, ambos não marcados como `membro_grupo`).
+
+| Propriedade     | Tipo       | Descrição                                                         | Not Null | Default | Domínio                                                                                                                           |
+| --------------- | ---------- | ----------------------------------------------------------------- | -------- | ------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| dependente      | uuid       | ID do participante que figura como Dependente no relacionamento.  | Sim      | Vazio   |                                                                                                                                   |
+| participante    | uuid       | ID do participante que figura como responsável no relacionamento. | Sim      | Vazio   |                                                                                                                                   |
+| inclusao        | date       | Data de inclusão do dependente.                                   | Sim      | Now()   |                                                                                                                                   |
+| tipo_parentesco | string(30) | Tipo de parentensco para com o responsável.                       | Sim      | Vazio   | ["conjuge", "uniao_estavel", "filho_enteado", "guarda_judicial", "pais_avos_bisavos", "incapaz", "ex_conjuge", "agregado_outros"] |
+
+##### Restrições
+
+* unique: (tenant, grupo_participante, participante, dependente)
+* FK: (participante) aponta para `participante` coluna (id)
+* FK: (dependente) aponta para `participante` coluna (id)
 
 ## Entidades Auxiliares
 
@@ -233,20 +390,21 @@ Representa um e-mail de um participante.
 
 Representa um telefone de um participante.
 
-| Propriedade  | Tipo        | Descrição                                                                                                                               | Not Null | Default | Domínio |
-| ------------ | ----------- | --------------------------------------------------------------------------------------------------------------------------------------- | -------- | ------- | ------- |
-| participante | uuid        | Identificador do participante relacionado.                                                                                              | Sim      | Vazio   |         |
-| descricao    | string(150) | Descrição do telefone (de acordo com o ponto de vista do cliente).                                                                      | Não      | Vazio   |         |
-| ddi          | string(2)   | DDI do telefone.                                                                                                                        | Sim      | Vazio   |         |
-| ddd          | string(2)   | DDD do telefone.                                                                                                                        | Sim      | Vazio   |         |
-| numero       | string(9)   | Número do telefone.                                                                                                                     | Sim      | Vazio   |         |
-| principal    | boolean     | Indica se este é o e-mail principal do participante.                                                                                    | Não      | Vazio   |         |
-| ramal        | string(12)  | Ramal do telefone.                                                                                                                      | Sim      | Vazio   |         |
-| fax          | boolean     | Indica se é um telefone para remessa de fax.                                                                                            | Não      | Vazio   |
-| financeiro   | boolean     | Indica se é um telefone para contato de natureza financeira (normalmente útil para telefones de contato não personificado).             | Não      | Vazio   |
-| faturamento  | boolean     | Indica se é um telefone para contato de natureza fiscal, de faturamento (normalmente útil para telefones de contato não personificado). | Não      | Vazio   |
-| comercial    | boolean     | Indica se é um telefone para contato de natureza comercial (normalmente útil para telefones de contato não personificado).              | Não      | Vazio   |
-| ordem        | int         | Indica a ordem de importância deste telefone (de acordo com a ordenação do usuário).                                                    | Sim      | Vazio   |         |
+| Propriedade         | Tipo        | Descrição                                                                                                                                           | Not Null | Default | Domínio                            |
+| ------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ------- | ---------------------------------- |
+| participante        | uuid        | Identificador do participante relacionado.                                                                                                          | Sim      | Vazio   |                                    |
+| descricao           | string(150) | Descrição do telefone (de acordo com o ponto de vista do cliente).                                                                                  | Não      | Vazio   |                                    |
+| tipo                | string(20)  | Tipo do número de telefone.                                                                                                                         | Sim      | Vazio   | ["fixo", "celular", "fax", "voip"] |
+| ddi                 | string(2)   | DDI do telefone.                                                                                                                                    | Sim      | Vazio   |                                    |
+| ddd                 | string(2)   | DDD do telefone.                                                                                                                                    | Sim      | Vazio   |                                    |
+| numero              | string(9)   | Número do telefone.                                                                                                                                 | Sim      | Vazio   |                                    |
+| principal           | boolean     | Indica se este é o e-mail principal do participante.                                                                                                | Não      | Vazio   |                                    |
+| ramal               | string(12)  | Ramal do telefone.                                                                                                                                  | Sim      | Vazio   |                                    |
+| residencial_pessoal | boolean     | Indica se é um telefone residencial, ou de carater pessoal (normalmente útil para telefones de contato de  persoa física).                          | Não      | Vazio   |
+| financeiro          | boolean     | Indica se é um telefone para contato de natureza financeira (normalmente útil para telefones de contato de pessoa jurídica ou similar).             | Não      | Vazio   |
+| faturamento         | boolean     | Indica se é um telefone para contato de natureza fiscal, de faturamento (normalmente útil para telefones de contato de pessoa jurídica ou similar). | Não      | Vazio   |
+| comercial           | boolean     | Indica se é um telefone para contato de natureza comercial (normalmente útil para telefones de contato de pessoa jurídica ou similar).              | Não      | Vazio   |
+| ordem               | int         | Indica a ordem de importância deste telefone (de acordo com a ordenação do usuário).                                                                | Sim      | Vazio   |                                    |
 
 #### Restrições
 
@@ -260,25 +418,25 @@ Representa um telefone de um participante.
 
 Representa um endereco de um participante.
 
-| Propriedade     | Tipo        | Descrição                                                                            | Not Null | Default | Domínio                                                  |
-| --------------- | ----------- | ------------------------------------------------------------------------------------ | -------- | ------- | -------------------------------------------------------- |
-| participante    | uuid        | Identificador do participante relacionado.                                           | Sim      | Vazio   |                                                          |
-| descricao       | string(150) | Descrição do endereço (de acordo com o ponto de vista do cliente).                   | Não      | Vazio   |                                                          |
-| cep             | string(15)  | Código de Endereçamento Postal.                                                      | Sim      | Vazio   |                                                          |
-| tipo_logradouro | string(10)  | Tipo do logradouro (rua, aveida, etc).                                               | Sim      | Vazio   | [Ver lista de tipos de logradouro.](tipos_logradouro.md) |
-| logradouro      | string(250) | Nome da rua, avenida, etc.                                                           | Sim      | Vazio   |                                                          |
-| numero          | string(10)  | Númeração dentro do logradouro.                                                      | Não      | Vazio   |                                                          |
-| complemento     | string(250) | Complemento do endereço.                                                             | Não      | Vazio   |                                                          |
-| bairro          | string(60)  | Bairro do endereço.                                                                  | Não      | Vazio   |                                                          |
-| uf              | string(2)   | Unidade Federativa do endereço.                                                      | Não      | Vazio   |                                                          |
-| pais            | string(5)   | Código do país (exemplo: Brasil = 1058).                                             | Sim      | Vazio   |                                                          |
-| ibge            | string(250) | Código IBGE do município do endereço.                                                | Não      | Vazio   |                                                          |
-| referencia      | string(250) | Referência para melhor localização do endereço.                                      | Não      | Vazio   |                                                          |
-| local           | boolean     | Indica se este é o endereço de localização do participante.                          | Não      | Vazio   |                                                          |
-| entrega         | boolean     | Indica se é um endereço para entrega de mercadoria.                                  | Não      | Vazio   |
-| cobranca        | boolean     | Indica se é um endereço para cabrança financeira.                                    | Não      | Vazio   |
-| comercial       | boolean     | Indica se é um endereço de referÊncia comercial do participante.                     | Não      | Vazio   |
-| ordem           | int         | Indica a ordem de importância deste endereço (de acordo com a ordenação do usuário). | Sim      | Vazio   |                                                          |
+| Propriedade     | Tipo        | Descrição                                                                                      | Not Null | Default | Domínio                                                  |
+| --------------- | ----------- | ---------------------------------------------------------------------------------------------- | -------- | ------- | -------------------------------------------------------- |
+| participante    | uuid        | Identificador do participante relacionado.                                                     | Sim      | Vazio   |                                                          |
+| descricao       | string(150) | Descrição do endereço (de acordo com o ponto de vista do cliente).                             | Não      | Vazio   |                                                          |
+| cep             | string(15)  | Código de Endereçamento Postal.                                                                | Sim      | Vazio   |                                                          |
+| tipo_logradouro | string(10)  | Tipo do logradouro (rua, aveida, etc).                                                         | Sim      | Vazio   | [Ver lista de tipos de logradouro.](tipos_logradouro.md) |
+| logradouro      | string(250) | Nome da rua, avenida, etc.                                                                     | Sim      | Vazio   |                                                          |
+| numero          | string(10)  | Númeração dentro do logradouro.                                                                | Não      | Vazio   |                                                          |
+| complemento     | string(250) | Complemento do endereço.                                                                       | Não      | Vazio   |                                                          |
+| bairro          | string(60)  | Bairro do endereço.                                                                            | Não      | Vazio   |                                                          |
+| uf              | string(2)   | Unidade Federativa do endereço.                                                                | Não      | Vazio   |                                                          |
+| pais            | string(5)   | Código do país (exemplo: Brasil = 1058).                                                       | Sim      | Vazio   |                                                          |
+| ibge            | string(250) | Código IBGE do município do endereço.                                                          | Não      | Vazio   |                                                          |
+| referencia      | string(250) | Referência para melhor localização do endereço.                                                | Não      | Vazio   |                                                          |
+| local           | boolean     | Indica se este é o endereço de localização do participante (residencial para pessoas físicas). | Não      | Vazio   |                                                          |
+| entrega         | boolean     | Indica se é um endereço para entrega de mercadoria.                                            | Não      | Vazio   |
+| cobranca        | boolean     | Indica se é um endereço para cabrança financeira.                                              | Não      | Vazio   |
+| comercial       | boolean     | Indica se é um endereço de referÊncia comercial do participante.                               | Não      | Vazio   |
+| ordem           | int         | Indica a ordem de importância deste endereço (de acordo com a ordenação do usuário).           | Sim      | Vazio   |                                                          |
 
 #### Restrições
 
