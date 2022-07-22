@@ -26,25 +26,18 @@ Além disso, os papeís assumidos por estes participantes não serão atributos 
 * Representante Comercial
 * Representante Técnico
 
-**Esta mesma tabela irá concentrar os registros das empresas e estabelecimentos contidos no ERP, no entanto, para isso ser possível, há duas colunas que permitirão identificar, em especial, esses papeis (verifique abaixo a documentação destas colunas):**
-
-* membro_grupo (boolean)
-* participante_matriz (uuid)
-
 #### Propriedades comuns a todos os tipos de participante
 
-| Propriedade               | Tipo        | Descrição                                                                                                                                                                                       | Not Null | Default | Domínio                                                                                                                                                                                                                                                                                                                                          |
-| ------------------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| membro_grupo              | boolean     | Indica que este participante é um membro do grupo de participantes relacionado, pela coluna grupo_empresarial. Normalmente usado para atribuir uma empresa como membro de um grupo empresarial. | Sim      | False   |                                                                                                                                                                                                                                                                                                                                                  |
-| participante_matriz       | uuid        | ID do participante ao qual este está ligado como filial (normalmente para um estabelecimento filial de um empresa).                                                                             | Sim      | False   |                                                                                                                                                                                                                                                                                                                                                  |
-| codigo                    | string(30)  | Identificador único, do ponto de vista do usuário final.                                                                                                                                        | Sim      | Vazio   |                                                                                                                                                                                                                                                                                                                                                  |
-| qualificacao              | string(11)  | Tipo de participante perante a lei (pessoa física, jurídica, etc).                                                                                                                              | Sim      | Vazio   | ["fisica", "juridica", "publica_federal", "publica_estadual", "publica_municipal", "cooperativa_credito", "cooperativa_agro", "cooperativa", "financeira", "seguradora_capitalizacao", "corretora_autonoma_seguro", "previdencia_complementar_aberta", "previdencia_complementar_fechada", "economia_mista", "outras_publica_federal", "outros"] |
-| documento                 | string(14)  | CNPJ ou CPF do participante (só contendo números).                                                                                                                                              | Sim      | Vazio   |                                                                                                                                                                                                                                                                                                                                                  |
-| nome                      | string(150) | Nome do participante.                                                                                                                                                                           | Sim      | Vazio   |                                                                                                                                                                                                                                                                                                                                                  |
-| nome_fantasia             | string(150) | Nome fantasia do participante (ou qualquer tipo de nomenclatura alternativa).                                                                                                                   | Não      | Vazio   |                                                                                                                                                                                                                                                                                                                                                  | observacao | string | Texto livre de observações sobre o participante. | Não | Vazio |  |
-| propriedades_customizadas | json        | JSON de propriedades customizadas pelo cliente.                                                                                                                                                 | Não      | Vazio   |                                                                                                                                                                                                                                                                                                                                                  |
-| site                      | string(250) | Endereço eletrônico do participante.                                                                                                                                                            | Não      | Vazio   |                                                                                                                                                                                                                                                                                                                                                  |
-| inativo                   | boolean     | Indica que um participante está inativo (não excluído, apenas oculo por opção do usuário).                                                                                                      | Sim      | False   |                                                                                                                                                                                                                                                                                                                                                  |
+| Propriedade               | Tipo        | Descrição                                                                                  | Not Null | Default | Domínio                                                                                                                                                                                                                                                                                                                                          |
+| ------------------------- | ----------- | ------------------------------------------------------------------------------------------ | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| codigo                    | string(30)  | Identificador único, do ponto de vista do usuário final.                                   | Sim      | Vazio   |                                                                                                                                                                                                                                                                                                                                                  |
+| qualificacao              | string(11)  | Tipo de participante perante a lei (pessoa física, jurídica, etc).                         | Sim      | Vazio   | ["fisica", "juridica", "publica_federal", "publica_estadual", "publica_municipal", "cooperativa_credito", "cooperativa_agro", "cooperativa", "financeira", "seguradora_capitalizacao", "corretora_autonoma_seguro", "previdencia_complementar_aberta", "previdencia_complementar_fechada", "economia_mista", "outras_publica_federal", "outros"] |
+| documento                 | string(14)  | CNPJ ou CPF do participante (só contendo números).                                         | Sim      | Vazio   |                                                                                                                                                                                                                                                                                                                                                  |
+| nome                      | string(150) | Nome do participante.                                                                      | Sim      | Vazio   |                                                                                                                                                                                                                                                                                                                                                  |
+| nome_fantasia             | string(150) | Nome fantasia do participante (ou qualquer tipo de nomenclatura alternativa).              | Não      | Vazio   |                                                                                                                                                                                                                                                                                                                                                  | observacao | string | Texto livre de observações sobre o participante. | Não | Vazio |  |
+| propriedades_customizadas | json        | JSON de propriedades customizadas pelo cliente.                                            | Não      | Vazio   |                                                                                                                                                                                                                                                                                                                                                  |
+| site                      | string(250) | Endereço eletrônico do participante.                                                       | Não      | Vazio   |                                                                                                                                                                                                                                                                                                                                                  |
+| inativo                   | boolean     | Indica que um participante está inativo (não excluído, apenas oculo por opção do usuário). | Sim      | False   |                                                                                                                                                                                                                                                                                                                                                  |
 
 #### Propriedades dos participante que representem pessoas jurídicas
 
@@ -145,13 +138,51 @@ _(4) As opções estão de acordo com os [resultados divulgados pelo IBGE](https
 * unique: (tenant, grupo_empresarial, codigo)
 * FK: (participante_matriz) aponta para `participante` coluna (id)
 
+### Entidades Empresariais
+
+#### Empresas
+
+> Tabela: empresa
+
+Representa a personificação de um participante único enquanto empresa matriz.
+
+| Propriedade       | Tipo       | Descrição                                                      | Not Null | Default | Domínio |
+| ----------------- | ---------- | -------------------------------------------------------------- | -------- | ------- | ------- |
+| participante      | string(14) | ID do participante que representa a empresa matriz.            | Sim      | Vazio   |         |
+| grupo_empresarial | uuid       | Identificador do grupo empresarial ao qual a empresa pertence. | Sim      | Vazio   |         |
+
+##### Restrições
+
+* PK: (tenant, participante)
+* FK: (participante) aponta para `participante` coluna (id)
+* FK: (grupo_empresarial) aponta para `grupo_empresarial` coluna (id)
+
+#### Estabelecimentos
+
+> Tabela: estabelecimento
+
+Representa a personificação de um participante único enquanto estabelecimento de uma empresa.
+
+| Propriedade       | Tipo       | Descrição                                                              | Not Null | Default | Domínio |
+| ----------------- | ---------- | ---------------------------------------------------------------------- | -------- | ------- | ------- |
+| participante      | string(14) | ID do participante que representa o estabelecimento.                   | Sim      | Vazio   |         |
+| empresa           | uuid       | Identificador da empresa à qual o estabelecimento pertence.            | Sim      | Vazio   |         |
+| grupo_empresarial | uuid       | Identificador do grupo empresarial ao qual o estabelecimento pertence. | Sim      | Vazio   |         |
+
+##### Restrições
+
+* PK: (tenant, participante)
+* FK: (participante) aponta para `participante` coluna (id)
+* FK: (grupo_empresarial) aponta para `grupo_empresarial` coluna (id)
+* FK: (empresa) aponta para `empresa` coluna (participante)
+
 ### Relacionamento Participantes
 
 #### Leads
 
 > Tabela: rel_lead
 
-Representa um relacionamento de Lead entre participantes (normalmente um participante qualquer, com outro marcado como `membro_grupo`).
+Representa um relacionamento de Lead entre participantes.
 
 | Propriedade  | Tipo | Descrição                                                                 | Not Null | Default | Domínio |
 | ------------ | ---- | ------------------------------------------------------------------------- | -------- | ------- | ------- |
@@ -160,7 +191,7 @@ Representa um relacionamento de Lead entre participantes (normalmente um partici
 
 ##### Restrições
 
-* unique: (tenant, grupo_participante, participante, lead)
+* unique: (tenant, grupo_empresarial, participante, lead)
 * FK: (participante) aponta para `participante` coluna (id)
 * FK: (lead) aponta para `participante` coluna (id)
 
@@ -168,7 +199,7 @@ Representa um relacionamento de Lead entre participantes (normalmente um partici
 
 > Tabela: rel_cliente
 
-Representa um relacionamento de Cliente entre participantes (normalmente um participante qualquer, com outro marcado como `membro_grupo`).
+Representa um relacionamento de Cliente entre participantes.
 
 | Propriedade    | Tipo          | Descrição                                                        | Not Null | Default | Domínio |
 | -------------- | ------------- | ---------------------------------------------------------------- | -------- | ------- | ------- |
@@ -178,7 +209,7 @@ Representa um relacionamento de Cliente entre participantes (normalmente um part
 
 ##### Restrições
 
-* unique: (tenant, grupo_participante, participante, cliente)
+* unique: (tenant, grupo_empresarial, participante, cliente)
 * FK: (participante) aponta para `participante` coluna (id)
 * FK: (cliente) aponta para `participante` coluna (id)
 
@@ -186,7 +217,7 @@ Representa um relacionamento de Cliente entre participantes (normalmente um part
 
 > Tabela: rel_fornecedor
 
-Representa um relacionamento de Fornecedor entre participantes (normalmente um participante qualquer, com outro marcado como `membro_grupo`).
+Representa um relacionamento de Fornecedor entre participantes.
 
 | Propriedade  | Tipo | Descrição                                                        | Not Null | Default | Domínio |
 | ------------ | ---- | ---------------------------------------------------------------- | -------- | ------- | ------- |
@@ -195,7 +226,7 @@ Representa um relacionamento de Fornecedor entre participantes (normalmente um p
 
 ##### Restrições
 
-* unique: (tenant, grupo_participante, participante, fornecedor)
+* unique: (tenant, grupo_empresarial, participante, fornecedor)
 * FK: (participante) aponta para `participante` coluna (id)
 * FK: (fornecedor) aponta para `participante` coluna (id)
 
@@ -203,7 +234,7 @@ Representa um relacionamento de Fornecedor entre participantes (normalmente um p
 
 > Tabela: rel_tecnico
 
-Representa um relacionamento de Técnico entre participantes (normalmente um participante qualquer, com outro marcado como `membro_grupo`).
+Representa um relacionamento de Técnico entre participantes.
 
 | Propriedade  | Tipo | Descrição                                                         | Not Null | Default | Domínio |
 | ------------ | ---- | ----------------------------------------------------------------- | -------- | ------- | ------- |
@@ -212,7 +243,7 @@ Representa um relacionamento de Técnico entre participantes (normalmente um par
 
 ##### Restrições
 
-* unique: (tenant, grupo_participante, participante, tecnico)
+* unique: (tenant, grupo_empresarial, participante, tecnico)
 * FK: (participante) aponta para `participante` coluna (id)
 * FK: (tecnico) aponta para `participante` coluna (id)
 
@@ -220,7 +251,7 @@ Representa um relacionamento de Técnico entre participantes (normalmente um par
 
 > Tabela: rel_vendedor
 
-Representa um relacionamento de Vendedor entre participantes (normalmente um participante qualquer, com outro marcado como `membro_grupo`).
+Representa um relacionamento de Vendedor entre participantes.
 
 | Propriedade  | Tipo | Descrição                                                         | Not Null | Default | Domínio |
 | ------------ | ---- | ----------------------------------------------------------------- | -------- | ------- | ------- |
@@ -229,7 +260,7 @@ Representa um relacionamento de Vendedor entre participantes (normalmente um par
 
 ##### Restrições
 
-* unique: (tenant, grupo_participante, participante, vendedor)
+* unique: (tenant, grupo_empresarial, participante, vendedor)
 * FK: (participante) aponta para `participante` coluna (id)
 * FK: (vendedor) aponta para `participante` coluna (id)
 
@@ -237,7 +268,7 @@ Representa um relacionamento de Vendedor entre participantes (normalmente um par
 
 > Tabela: rel_transportadora
 
-Representa um relacionamento de Transportadora entre participantes (normalmente um participante qualquer, com outro marcado como `membro_grupo`).
+Representa um relacionamento de Transportadora entre participantes.
 
 | Propriedade    | Tipo | Descrição                                                            | Not Null | Default | Domínio |
 | -------------- | ---- | -------------------------------------------------------------------- | -------- | ------- | ------- |
@@ -246,7 +277,7 @@ Representa um relacionamento de Transportadora entre participantes (normalmente 
 
 ##### Restrições
 
-* unique: (tenant, grupo_participante, participante, transportadora)
+* unique: (tenant, grupo_empresarial, participante, transportadora)
 * FK: (participante) aponta para `participante` coluna (id)
 * FK: (transportadora) aponta para `participante` coluna (id)
 
@@ -254,7 +285,7 @@ Representa um relacionamento de Transportadora entre participantes (normalmente 
 
 > Tabela: rel_representante_comercial
 
-Representa um relacionamento de Representante Comercial entre participantes (normalmente um participante qualquer, com outro marcado como `membro_grupo`).
+Representa um relacionamento de Representante Comercial entre participantes.
 
 | Propriedade             | Tipo | Descrição                                                                     | Not Null | Default | Domínio |
 | ----------------------- | ---- | ----------------------------------------------------------------------------- | -------- | ------- | ------- |
@@ -263,7 +294,7 @@ Representa um relacionamento de Representante Comercial entre participantes (nor
 
 ##### Restrições
 
-* unique: (tenant, grupo_participante, participante, representante_comercial)
+* unique: (tenant, grupo_empresarial, participante, representante_comercial)
 * FK: (participante) aponta para `participante` coluna (id)
 * FK: (representante_comercial) aponta para `participante` coluna (id)
 
@@ -271,7 +302,7 @@ Representa um relacionamento de Representante Comercial entre participantes (nor
 
 > Tabela: rel_representante_tecnico
 
-Representa um relacionamento de Representante Técnico entre participantes (normalmente um participante qualquer, com outro marcado como `membro_grupo`).
+Representa um relacionamento de Representante Técnico entre participantes.
 
 | Propriedade           | Tipo | Descrição                                                                   | Not Null | Default | Domínio |
 | --------------------- | ---- | --------------------------------------------------------------------------- | -------- | ------- | ------- |
@@ -280,7 +311,7 @@ Representa um relacionamento de Representante Técnico entre participantes (norm
 
 ##### Restrições
 
-* unique: (tenant, grupo_participante, participante, representante_tecnico)
+* unique: (tenant, grupo_empresarial, participante, representante_tecnico)
 * FK: (participante) aponta para `participante` coluna (id)
 * FK: (representante_tecnico) aponta para `participante` coluna (id)
 
@@ -288,7 +319,7 @@ Representa um relacionamento de Representante Técnico entre participantes (norm
 
 > Tabela: rel_contato
 
-Representa um relacionamento de Contato entre participantes (normalmente entre dois participantes, ambos não marcados como `membro_grupo`).
+Representa um relacionamento de Contato entre participantes.
 
 | Propriedade  | Tipo    | Descrição                                                       | Not Null | Default | Domínio |
 | ------------ | ------- | --------------------------------------------------------------- | -------- | ------- | ------- |
@@ -302,15 +333,37 @@ Representa um relacionamento de Contato entre participantes (normalmente entre d
 
 ##### Restrições
 
-* unique: (tenant, grupo_participante, participante, contato)
+* unique: (tenant, grupo_empresarial, participante, contato)
 * FK: (participante) aponta para `participante` coluna (id)
 * FK: (contato) aponta para `participante` coluna (id)
+
+#### Trabalhadores
+
+> Tabela: rel_trabalhador
+
+Representa um relacionamento de Trabalho entre participantes.
+
+| Propriedade  | Tipo       | Descrição                                                         | Not Null | Default | Domínio                                                                                                      |
+| ------------ | ---------- | ----------------------------------------------------------------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------ |
+| trabalhador  | uuid       | ID do participante que figura como Trabalhador no relacionamento. | Sim      | Vazio   |                                                                                                              |
+| participante | uuid       | ID do participante que figura como empregador no relacionamento.  | Sim      | Vazio   |                                                                                                              |
+| tipo         | string(20) | Tipo de relacionamento de trabalho.                               | Sim      | Vazio   | ["estagiario", "jovem_aprendiz", "clt", "socio", "diretor", "temporario"] TODO Rever com a equipe do produto |
+| matricula    | string(14) | Matrícula do trabalhador na empresa contratante.                  | Sim      | Vazio   |                                                                                                              |
+
+TODO Rever campos com a equipe do produto.
+
+##### Restrições
+
+* unique: (tenant, grupo_empresarial, participante, trabalhador)
+* unique: (tenant, grupo_empresarial, participante, matricula)
+* FK: (participante) aponta para `participante` coluna (id)
+* FK: (trabalhador) aponta para `participante` coluna (id)
 
 #### Dependente
 
 > Tabela: rel_dependente
 
-Representa um relacionamento de Dependência entre participantes (normalmente pessoas físicas, ambos não marcados como `membro_grupo`).
+Representa um relacionamento de Dependência entre participantes.
 
 | Propriedade     | Tipo       | Descrição                                                         | Not Null | Default | Domínio                                                                                                                           |
 | --------------- | ---------- | ----------------------------------------------------------------- | -------- | ------- | --------------------------------------------------------------------------------------------------------------------------------- |
@@ -321,7 +374,7 @@ Representa um relacionamento de Dependência entre participantes (normalmente pe
 
 ##### Restrições
 
-* unique: (tenant, grupo_participante, participante, dependente)
+* unique: (tenant, grupo_empresarial, participante, dependente)
 * FK: (participante) aponta para `participante` coluna (id)
 * FK: (dependente) aponta para `participante` coluna (id)
 
@@ -341,7 +394,7 @@ Representa uma inscrição estadual do participante (se houver). Assim, um parti
 
 #### Restrições
 
-* unique: (tenant, grupo_participante, participante, uf)
+* unique: (tenant, grupo_empresarial, participante, uf)
 * FK: (participante) aponta para `participante` coluna (id)
 
 ### Inscrição Municipal
@@ -358,7 +411,7 @@ Representa uma inscrição municipal do participante (se houver). Assim, um part
 
 #### Restrições
 
-* unique: (tenant, grupo_participante, participante, ibge)
+* unique: (tenant, grupo_empresarial, participante, ibge)
 * FK: (participante) aponta para `participante` coluna (id)
 
 ### E-Mail
@@ -380,8 +433,8 @@ Representa um e-mail de um participante.
 
 #### Restrições
 
-* unique: (tenant, grupo_participante, participante, email)
-* unique: (tenant, grupo_participante, participante, principal)
+* unique: (tenant, grupo_empresarial, participante, email)
+* unique: (tenant, grupo_empresarial, participante, principal)
 * FK: (participante) aponta para `participante` coluna (id)
 
 ### Telefone
@@ -408,8 +461,8 @@ Representa um telefone de um participante.
 
 #### Restrições
 
-* unique: (tenant, grupo_participante, participante, ddi, ddd, telefone)
-* unique: (tenant, grupo_participante, participante, principal)
+* unique: (tenant, grupo_empresarial, participante, ddi, ddd, telefone)
+* unique: (tenant, grupo_empresarial, participante, principal)
 * FK: (participante) aponta para `participante` coluna (id)
 
 ### Endereços
@@ -440,5 +493,5 @@ Representa um endereco de um participante.
 
 #### Restrições
 
-* unique: (tenant, grupo_participante, participante, local)
+* unique: (tenant, grupo_empresarial, participante, local)
 * FK: (participante) aponta para `participante` coluna (id)
