@@ -2,14 +2,9 @@
 
 Gerencia todas as atividades relacionadas com a manutenção da carteira de clientes atuais.
 
-## Entidades
+## Rotas
 
-### Cliente
+* [Manutenção de Pessoas Físicas](pessoas_fisicas.md)
+* [Manutenção de Pessoas Jurídicas](pessoas_juridicas.md)
+* [Associação de Clientes](clientes.md)
 
-Representação de um cliente, de um grupo empresarial.
-
-##### Identificação
-
-| Propriedade     | Tipo            | Descrição                                                   |
-| --------------- | --------------- | ----------------------------------------------------------- |
-| cnpj 
