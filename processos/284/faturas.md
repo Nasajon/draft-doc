@@ -23,11 +23,11 @@ Deve-se enviar o header `X-API-Key` com uma API-Key válida (obtida na contrata�
 | prestador                | string(30)  | CPF/CNPJ do prestador.                                                                      | Sim         | Vazio    |            |			 |
 | tomador             	   | string(30)  | CPF/CNPJ do tomador.                                                                        | Sim         | Vazio    |            | 			 |
 | estabelecimento          | string(30)  | CPF/CNPJ do estabelecimento.                                                                | Sim         | Vazio    |            |			 |
-| numero              	   | string(30)  |  Identificador único da fatura.												               | Sim         |          |            |           |
+| numero              	   | string(30)  |  Identificador único da fatura.												               | Sim         |          |            | O número da fatura deve ser enviado pelo cliente.           |
 | emissao                  | date 		 | Data de emissão da fatura.                                                        		   | Sim         | Vazio    |            |			 |
 | desconto                 | Decimal(15,2)| Desconto total na fatura.                                      							   | Não         | Vazio    |            |           |
 | percentual_desconto      | Decimal(15,4)| Percetual de desconto na fatura.                                                    | Não         | 0.00     |     		 |			 |                                                                                                                                                             |
-| situacao                 | Enum/string(30)| Sinal da fatura.                                                             		   	   | Sim         |          |["SinalFatura"]|["recebimento","pagamento""]|
+| sinal                    | Enum/string(30)| Sinal da fatura.                                                             		   	   | Sim         |          |["SinalFatura"]|["recebimento","pagamento""]|
 | criado_em         	   | datetime    | Indica data e hora de cadastro do registro.                                                 | Não         | now()    |            |			 |
 | criado_por        	   | string(150) | Indica e-mail da conta Nasajon, do usuário responsável pela criação do registro.            | Não         | Vazio    |            |			 |
 | atualizado_em     	   | datetime    | Indica data e hora da última atualização do registro.                                       | Não         | Vazio    |            |			 |	
@@ -50,7 +50,7 @@ Deve-se enviar o header `X-API-Key` com uma API-Key válida (obtida na contrata�
 | Propriedade              | Tipo        | Descrição                                                                                   | Obrigatório | Default  | Domínio    | Observação|
 | ------------------------ | ----------- | ------------------------------------------------------------------------------------------- | ----------- | -------- | ---------- |---------- |
 | valor        | Decimal(15,2)  | Valor total do item.                                                                    		   | Sim         | Vazio    |            |
-| chave| string(150)| Chave única que contém para realização do vínculo no ERP.                                                           | Sim      | Vazio |		 	 |    		 |
+| chave| string(150)| Chave única . Ex Cte: 31200201014373001318570010002042731470407154 / Ex Nfse: 123456_001(numeroNota_serie).                                                              | Sim      | Vazio |		 	 |    		 |
 
 
 ##### Status possíveis
