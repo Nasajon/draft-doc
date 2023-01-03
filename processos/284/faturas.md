@@ -70,7 +70,7 @@ _(*): Ver disposições gerais sobre erros, para mais informações._
 ###### Requisição
 
 ```http
-POST https://cobrancas-api-inyrb33hja-uc.a.run.app/284/faturas 
+POST https://tesouraria-api-inyrb33hja-uc.a.run.app/tesouraria/284/faturas
 HTTP/1.1
 X-API-Key: **************
 Accept: application/json
@@ -241,7 +241,7 @@ _(*): Ver disposições gerais sobre erros, para mais informações._
 ###### Requisição
 
 ```http
-GET https://cobrancas-api-inyrb33hja-uc.a.run.app/284/faturas?tenant=9999&grupo_empresarial=07393bcc-5b38-469a-8528-9ca9f70461d7 HTTP/1.1
+GET https://tesouraria-api-inyrb33hja-uc.a.run.app/tesouraria/284/faturas?tenant=XXXX&grupo_empresarial=GUID HTTP/1.1
 X-API-Key: **************
 Accept: application/json
 ```
