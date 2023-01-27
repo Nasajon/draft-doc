@@ -76,7 +76,7 @@ _(*): Ver disposições gerais sobre erros, para mais informações._
 ###### Requisição
 
 ```http
-GET https://dadosmestre-api-inyrb33hja-uc.a.run.app/2531/pessoas-juridicas?fields=enderecos,nome_fantasia&criado_apos=2022-08-09&tenant=9999&grupo_empresarial=728ddc4a-242f-45f0-a752-f3e46f9993ad&id=71688968000109,71688968000109 HTTP/1.1
+GET https://dadosmestre-api-inyrb33hja-uc.a.run.app/dados-mestre/2531/pessoas-juridicas?fields=enderecos,nome_fantasia&criado_apos=2022-08-09&tenant=9999&grupo_empresarial=728ddc4a-242f-45f0-a752-f3e46f9993ad&id=71688968000109,71688968000109 HTTP/1.1
 X-API-Key: **************
 Accept: application/json
 ```
@@ -195,7 +195,7 @@ _(*): Ver disposições gerais sobre erros, para mais informações._
 ###### Requisição
 
 ```http
-GET https://dadosmestre-api-inyrb33hja-uc.a.run.app/2531/pessoas-juridicas/71688968000109?fields=enderecos,nome_fantasia&tenant=9999&grupo_empresarial=728ddc4a-242f-45f0-a752-f3e46f9993ad HTTP/1.1
+GET https://dadosmestre-api-inyrb33hja-uc.a.run.app/dados-mestre/2531/pessoas-juridicas/71688968000109?fields=enderecos,nome_fantasia&tenant=9999&grupo_empresarial=728ddc4a-242f-45f0-a752-f3e46f9993ad HTTP/1.1
 X-API-Key: **************
 Accept: application/json
 ```
@@ -295,7 +295,7 @@ _(*): Ver disposições gerais sobre erros, para mais informações._
 ###### Requisição
 
 ```http
-POST https://dadosmestre-api-inyrb33hja-uc.a.run.app/2531/pessoas-juridicas HTTP/1.1
+POST https://dadosmestre-api-inyrb33hja-uc.a.run.app/dados-mestre/2531/pessoas-juridicas HTTP/1.1
 X-API-Key: **************
 Content-Type: application/json
 
@@ -395,7 +395,7 @@ _(*): Ver disposições gerais sobre erros, para mais informações._
 ###### Requisição
 
 ```http
-PUT https://dadosmestre-api-inyrb33hja-uc.a.run.app/2531/pessoas-juridicas/58773641000169 HTTP/1.1
+PUT https://dadosmestre-api-inyrb33hja-uc.a.run.app/dados-mestre/2531/pessoas-juridicas/58773641000169 HTTP/1.1
 X-API-Key: **************
 Content-Type: application/json
 
