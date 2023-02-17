@@ -51,6 +51,18 @@ Deve-se enviar o header `X-API-Key` com uma API-Key válida (obtida na contrata�
 | ------------------------ | ----------- | ------------------------------------------------------------------------------------------- | ----------- | -------- | ---------- |---------- |
 | valor        | Decimal(15,2)  | Valor total do item.                                                                    		   | Sim         | Vazio    |            |
 | chave		   | string(44)| Chave única . Ex Cte: 31200201014373001318570010002042731470407154 / Ex Nfse: 123456_001(numeroNota_serie).                                                              | Sim      | Vazio |		 	 |    		 |
+| temporario   | boolean   |Informa se o item será temporário para ser criado no ERP Desktop um documento temporário 					| Não     	  | false	|		 	 |    		 |
+
+#### Corpo do Rateio Financeiro
+| Propriedade              | Tipo        | Descrição                                                                                   | Obrigatório | Default  | Domínio    | Observação|
+| ------------------------ | ----------- | ------------------------------------------------------------------------------------------- | ----------- | -------- | ---------- |---------- |
+| valor        | Decimal(15,2)  | Valor do rateio financeiro                                                                    		   | Sim     | 	Vazio	|            |
+| centro_custo		   | string(40)|Código do centro de custo                                                              				   | Sim     |  Vazio	|		 	 |    		 |
+| centro_custo_descricao| string(255)|Descrição do centro de custo                                                            			   | Não     | centro_custo|		 	 |    		 |
+| classificacao_financeira		   | string(40)|Código da classificação financeira                                                         | Sim     |  Vazio	|		 	 |    		 |
+| classificacao_financeira_descricao| string(255)|Descrição da da classificação financeira                                                 | Não     | classificacao_financeira|		 	 |    		 |
+| projeto		   | string(40)|Código do projeto                                                              				   			   | Sim     |  Vazio	|		 	 |    		 |
+| projeto_descricao| string(255)|Descrição do projeto                                                             			   			   | Não     | projeto|		 	 |    		 |
 
 
 ##### Status possíveis
@@ -88,27 +100,49 @@ Accept: application/json
     "numero":"1",
     "sinal": "recebimento",
     "forma_pagamento_fatura": [{
-         "valor" : 100,
+         "valor" : 175.00,
          "conta" : "BB",
          "tipo_forma_pagamento" : "cheque"
     },
     {
-         "valor" : 50,
+         "valor" : 25.00,
          "conta" : "BB",
          "tipo_forma_pagamento" : "dinheiro"
     }
     ],
     "item_fatura": [
         {
-        "valor" : 150,
-         "chave" : 1
+        "valor" : 150.00,
+         "chave" : 1,
+		 "temporario" : false
         },
         {
-        "valor" : 50,
-         "chave" : 2
+        "valor" : 50.00,
+        "chave" : 2,
+		"temporario" : false
         }
 
-    ]
+    ],
+	"rateio_financeiro_fatura": [
+		{
+			"valor": "180.00",
+			"centro_custo": "1.01",
+			"centro_custo_descricao": "XPTO",
+			"classificacao_financeira": "101002",
+			"classificacao_financeira_descricao": "XPTO",
+			"projeto": "0001",
+			"projeto_descricao": "XPTO"
+		},
+		{
+			"valor": "20.00",
+			"centro_custo": "1.02",
+			"centro_custo_descricao": "XPTO",
+			"classificacao_financeira": "101003",
+			"classificacao_financeira_descricao": "XPTO",
+			"projeto": "0001",
+			"projeto_descricao": "XPTO"
+		}
+	]
 
 }
 ```
@@ -153,13 +187,35 @@ Content-Encoding: gzip
     "item_fatura": [
         {
             "valor": "150",
-            "chave": "1"
+            "chave": "1",
+			"temporario" : false
         },
         {
             "valor": "50",
-            "chave": "2"
+            "chave": "2",
+			"temporario" : false
         }
-    ]
+    ],
+	"rateio_financeiro_fatura": [
+		{
+			"valor": "180.00",
+			"centro_custo": "1.01",
+			"centro_custo_descricao": "XPTO",
+			"classificacao_financeira": "101002",
+			"classificacao_financeira_descricao": "XPTO",
+			"projeto": "0001",
+			"projeto_descricao": "XPTO"
+		},
+		{
+			"valor": "20.00",
+			"centro_custo": "1.02",
+			"centro_custo_descricao": "XPTO",
+			"classificacao_financeira": "101003",
+			"classificacao_financeira_descricao": "XPTO",
+			"projeto": "0001",
+			"projeto_descricao": "XPTO"
+		}
+	]
 }
 ```
 
@@ -222,6 +278,18 @@ Deve-se enviar o header `X-API-Key` com uma API-Key válida (obtida na contrata�
 | ------------------------ | ----------- | ------------------------------------------------------------------------------------------- | ----------- | -------- | ---------- |---------- |
 | valor        | Decimal(15,2)  | Valor total do item.                                                                    		   	   | Sim         | Vazio    |            |
 | chave		   | string(44)| Chave única . Ex Cte: 31200201014373001318570010002042731470407154 / Ex Nfse: 123456_001(numeroNota_serie).                                                              | Sim      | Vazio |		 	 |    		 |
+| temporario   | boolean   |Retorna se o item será temporário para ser criado no ERP Desktop um documento temporário 					| Não     	  | false	|		 	 |    		 |
+
+#### Corpo do Rateio Financeiro
+| Propriedade              | Tipo        | Descrição                                                                                   | Obrigatório | Default  | Domínio    | Observação|
+| ------------------------ | ----------- | ------------------------------------------------------------------------------------------- | ----------- | -------- | ---------- |---------- |
+| valor        | Decimal(15,2)  | Valor do rateio financeiro                                                                    		   | Sim     | 	Vazio	|            |
+| centro_custo		   | string(40)|Código do centro de custo                                                              				   | Sim     |  Vazio	|		 	 |    		 |
+| centro_custo_descricao| string(255)|Descrição do centro de custo                                                            			   | Não     | centro_custo|		 	 |    		 |
+| classificacao_financeira		   | string(40)|Código da classificação financeira                                                         | Sim     |  Vazio	|		 	 |    		 |
+| classificacao_financeira_descricao| string(255)|Descrição da da classificação financeira                                                 | Não     | classificacao_financeira|		 	 |    		 |
+| projeto		   | string(40)|Código do projeto                                                              				   			   | Sim     |  Vazio	|		 	 |    		 |
+| projeto_descricao| string(255)|Descrição do projeto                                                             			   			   | Não     | projeto|		 	 |    		 |
 
 
 ##### Status possíveis
@@ -285,13 +353,35 @@ HTTP/1.1 200 OK
         "item_fatura": [
             {
                 "chave": "1",
-                "valor": "50.00"
+                "valor": "50.00",
+				"temporario" : false
             },
             {
                 "chave": "2",
-                "valor": "50.00"
+                "valor": "50.00",
+				"temporario" : false
             }
-        ]
+        ],
+		"rateio_financeiro_fatura": [
+			{
+				"valor": "180.00",
+				"centro_custo": "1.01",
+				"centro_custo_descricao": "XPTO",
+				"classificacao_financeira": "101002",
+				"classificacao_financeira_descricao": "XPTO",
+				"projeto": "0001",
+				"projeto_descricao": "XPTO"
+			},
+			{
+				"valor": "20.00",
+				"centro_custo": "1.02",
+				"centro_custo_descricao": "XPTO",
+				"classificacao_financeira": "101003",
+				"classificacao_financeira_descricao": "XPTO",
+				"projeto": "0001",
+				"projeto_descricao": "XPTO"
+			}
+		]
     }
 ]
 ```
