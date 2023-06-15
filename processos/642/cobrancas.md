@@ -112,7 +112,7 @@ _(*): Ver disposições gerais sobre erros, para mais informações._
 ###### Requisição
 
 ```http
-GET https://tesouraria-api-inyrb33hja-uc.a.run.app/284/tesouraria/cobrancas?tenant=47&grupo_empresarial=2cddf8bf-b68f-4de8-a9ee-1eccdbc634d3 HTTP/1.1
+GET https://apihomolog.nasajon.app/284/tesouraria/cobrancas?tenant=47&grupo_empresarial=2cddf8bf-b68f-4de8-a9ee-1eccdbc634d3 HTTP/1.1
 X-API-Key: **************
 Accept: application/json
 ```
