@@ -6,7 +6,7 @@ Gerencia todas as atividades relacionadas com a Cobrança bancária.
 
 ### List Cobranças
 
-> GET /642/cobrancas
+> GET /284/cobrancas
 
 API para listagem paginada de pessoas físicas.
 
@@ -112,7 +112,7 @@ _(*): Ver disposições gerais sobre erros, para mais informações._
 ###### Requisição
 
 ```http
-GET https://cobrancas-api-inyrb33hja-uc.a.run.app/642/cobrancas?tenant=47&grupo_empresarial=2cddf8bf-b68f-4de8-a9ee-1eccdbc634d3 HTTP/1.1
+GET https://tesouraria-api-inyrb33hja-uc.a.run.app/284/tesouraria/cobrancas?tenant=47&grupo_empresarial=2cddf8bf-b68f-4de8-a9ee-1eccdbc634d3 HTTP/1.1
 X-API-Key: **************
 Accept: application/json
 ```
