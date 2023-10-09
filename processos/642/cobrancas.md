@@ -52,7 +52,8 @@ Deve-se enviar o header `X-API-Key` com uma API-Key válida (obtida na contrata�
 | updated_by               | string(150) | Usuário que atualizou a cobrança.                                                           | Não         | Vazio    |    |                                                                                  |
 | deleted_at               | datetime 	 | Data de deleção da cobrança.                                                                | Não         | now()    |     |                                                                                                                                                             |
 | deleted_by               | string(150) | Usuário que deletou a cobrança.                                                             | Não         | Vazio    |     |                                                                                                                                                             |
-| tenant     			   | Integer     | Identificador do tenant para filtro dos registros.                           			   | Não         | Vazio    |    |                                                                                                                                                             |
+| tenant     			   | Integer     | Identificador do tenant para filtro dos registros.                           			   | Não         | Vazio    |    ||
+| numero_erp               | string(150) | Numeração do título gerada no ERP.                                                             | Não         | Vazio    | 
 | moeda    				   | string(30)  | Indica que o participante possui algum tipo de deficiÊncia auditiva.                        | Não         | Vazio    |    |                                                                                                                                                             |
 | id_integracao			   | string(36)  | Identificador do ERP caso haja.                      | Não         | Vazio    |    |                                                                                                                                                             |
 | boletos			   | []  | Lista de objeto de boleto                     | Não         | Vazio    |    |      |
@@ -154,6 +155,7 @@ Content-Encoding: gzip
             "estabelecimento": "61393735000117",
             "numero": "1234",
             "tenant": 47,
+            "numero_erp" : "123456",
             "boletos": [
                 {
                     "grupo_empresarial": "2cddf8bf-b68f-4de8-a9ee-1eccdbc634d3",
@@ -192,7 +194,8 @@ Content-Encoding: gzip
                     "linha_digitavel": "87915648745616876513000000000000005648970056481000",
                     "tenant": 47
                 }
-            ]
+            ],
+            "contrato" = []
         }
     ]
 }
